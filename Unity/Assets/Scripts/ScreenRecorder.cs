@@ -20,7 +20,7 @@ public class ScreenRecorder : MonoBehaviour
     #region Private Var
 
     private Texture2D renderTexture;
-    private XRCameraImageConversionParams conversionParams;
+    private XRCpuImage.ConversionParams conversionParams;
     private IntPtr intPtr;
 
     private bool isRecording;
@@ -36,14 +36,7 @@ public class ScreenRecorder : MonoBehaviour
     public void SwitchFocusMode(string value)
     {
         var arg = bool.Parse(value);
-        if (arg)
-        {
-            cameraManager.focusMode = CameraFocusMode.Auto;
-        }
-        else
-        {
-            cameraManager.focusMode = CameraFocusMode.Fixed;
-        }
+        cameraManager.autoFocusRequested = arg;
     }
 
     public void StartRecord(string value)
@@ -123,7 +116,7 @@ public class ScreenRecorder : MonoBehaviour
     /// </summary>
     private unsafe void ScreenShotRawImage()
     {
-        if (!cameraManager.TryGetLatestImage(out XRCameraImage image))
+        if (!cameraManager.TryAcquireLatestCpuImage(out XRCpuImage image))
         {
             return;
         }
@@ -131,7 +124,7 @@ public class ScreenRecorder : MonoBehaviour
         if (renderTexture == null)
         {
             renderTexture = new Texture2D(image.width, image.height, TextureFormat.BGRA32, false);
-            conversionParams = new XRCameraImageConversionParams(image, TextureFormat.BGRA32, CameraImageTransformation.None);
+            conversionParams = new XRCpuImage.ConversionParams(image, TextureFormat.BGRA32);
             intPtr = new IntPtr(renderTexture.GetRawTextureData<byte>().GetUnsafePtr());
         }
 
@@ -181,7 +174,7 @@ public class ScreenRecorder : MonoBehaviour
     /// </summary>
     private unsafe void ScreenRecordRawImage()
     {
-        if (!cameraManager.TryGetLatestImage(out XRCameraImage image))
+        if (!cameraManager.TryAcquireLatestCpuImage(out XRCpuImage image))
         {
             return;
         }
@@ -191,7 +184,7 @@ public class ScreenRecorder : MonoBehaviour
             if (renderTexture == null)
             {
                 renderTexture = new Texture2D(image.width, image.height, TextureFormat.BGRA32, false);
-                conversionParams = new XRCameraImageConversionParams(image, TextureFormat.BGRA32, CameraImageTransformation.None);
+                conversionParams = new XRCpuImage.ConversionParams(image, TextureFormat.BGRA32);
                 intPtr = new IntPtr(renderTexture.GetRawTextureData<byte>().GetUnsafePtr());
                 NativeAPI.StartRecordVideo(image.width, image.height, recordType);
             }

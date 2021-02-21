@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04C9103A25E2A891000916C4 /* BufferProvider.c in Sources */ = {isa = PBXBuildFile; fileRef = 04C9103825E2A891000916C4 /* BufferProvider.c */; };
 		956E606E24D0376000C264DB /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 956E606D24D0376000C264DB /* ViewController.xib */; };
 		959ABD9224EA294900AAA8D1 /* NativeCallProxy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 959ABD9124EA294900AAA8D1 /* NativeCallProxy.mm */; };
 		95B2F26024CEDDFF00BBA881 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B2F25F24CEDDFF00BBA881 /* AppDelegate.swift */; };
@@ -35,6 +36,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04C9103725E2A891000916C4 /* buffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffer.h; sourceTree = "<group>"; };
+		04C9103825E2A891000916C4 /* BufferProvider.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = BufferProvider.c; sourceTree = "<group>"; };
+		04C9103925E2A891000916C4 /* BufferProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BufferProvider.h; sourceTree = "<group>"; };
 		75CD1CF7D0B388771F4BD24E /* Pods_Recorder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recorder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		956E606D24D0376000C264DB /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		959ABD9024EA294900AAA8D1 /* NativeCallProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NativeCallProxy.h; path = ../../../iOSBuild/Libraries/Plugins/iOS/NativeCallProxy.h; sourceTree = "<group>"; };
@@ -66,6 +70,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04C9103625E2A86B000916C4 /* Buffer */ = {
+			isa = PBXGroup;
+			children = (
+				04C9103725E2A891000916C4 /* buffer.h */,
+				04C9103925E2A891000916C4 /* BufferProvider.h */,
+				04C9103825E2A891000916C4 /* BufferProvider.c */,
+			);
+			path = Buffer;
+			sourceTree = "<group>";
+		};
 		95B2F25324CEDDFF00BBA881 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +111,7 @@
 				95B2F26A24CEDDFF00BBA881 /* LaunchScreen.storyboard */,
 				95B2F26D24CEDDFF00BBA881 /* Info.plist */,
 				95B2F29424CEE92600BBA881 /* Recorder-Bridging-Header.h */,
+				04C9103625E2A86B000916C4 /* Buffer */,
 				95B2F28A24CEE38B00BBA881 /* Proxy */,
 			);
 			path = Recorder;
@@ -246,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95B2F28224CEE24A00BBA881 /* UnityEmbeddedSwift.swift in Sources */,
+				04C9103A25E2A891000916C4 /* BufferProvider.c in Sources */,
 				95B2F26424CEDDFF00BBA881 /* ViewController.swift in Sources */,
 				95B2F26024CEDDFF00BBA881 /* AppDelegate.swift in Sources */,
 				959ABD9224EA294900AAA8D1 /* NativeCallProxy.mm in Sources */,
