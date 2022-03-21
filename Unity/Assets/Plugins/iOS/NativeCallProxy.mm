@@ -13,7 +13,7 @@ static id<NativeCallsProtocol> api = NULL;
 extern "C" {
 
 void UnityInitialize() {
-    return [api unityInitialize];
+    [api unityInitialize];
 }
 
 void StartRecordVideo(int width, int height, int recordType) {
@@ -22,6 +22,10 @@ void StartRecordVideo(int width, int height, int recordType) {
 
 void SendVideoData(Byte *data,int dataLenth) {
     [api receiveVideoDataFromUnity:data length:dataLenth];
+}
+
+void SendAudioData(Byte *data,int dataLenth, int channel) {
+    [api receiveAudioDataFromUnity:data length:dataLenth channel: channel];
 }
 
 void StopRecordVideo() {

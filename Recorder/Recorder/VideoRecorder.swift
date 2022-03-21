@@ -82,6 +82,14 @@ class VideoRecorder: NSObject {
         }
     }
     
+    func encode(audioBuffer: UnsafeMutablePointer<UInt8>?, length: Int, channel: UInt32) {
+        if audioBuffer != nil {
+            if let buffer = sampleBuffer(data: audioBuffer!, length: length, channel: channel) {
+                output?.processAudioBuffer(buffer)
+            }
+        }
+    }
+    
     func finishRecording(completionHandler: @escaping (()-> Void)) {
         output.finishRecording(completionHandler: completionHandler)
         timeStamp = 0
@@ -94,6 +102,36 @@ class VideoRecorder: NSObject {
         let pts = CMTimeMake(value: Int64(NSDate().timeIntervalSince1970*1000-timeStamp), timescale: 1000)
         time = CMTimeGetSeconds(pts)
         return pts
+    }
+    
+    private func sampleBuffer(data: UnsafeMutablePointer<UInt8>, length: Int, channel: UInt32) -> CMSampleBuffer? {
+        var asbd: AudioStreamBasicDescription = AudioStreamBasicDescription(mSampleRate: 44100, mFormatID: kAudioFormatLinearPCM, mFormatFlags: kAudioFormatFlagIsSignedInteger | kAudioFormatFlagIsPacked, mBytesPerPacket: 2*channel, mFramesPerPacket: 1, mBytesPerFrame: 2*channel, mChannelsPerFrame: channel, mBitsPerChannel: 8 * 2, mReserved: 0)
+        var format: CMAudioFormatDescription!
+        var error: OSStatus = CMAudioFormatDescriptionCreate(allocator: nil, asbd: &asbd, layoutSize: 0, layout: nil, magicCookieSize: 0, magicCookie: nil, extensions: nil, formatDescriptionOut: &format)
+        if error != 0 {
+            print("Error in CMAudioFormatDescriptionCreater \(error)")
+        }else{
+            var timing = CMSampleTimingInfo(duration: CMTimeMake(value: 1 , timescale: 44100), presentationTimeStamp: pts(), decodeTimeStamp: CMTime.invalid)
+            let numberOfFrames = length/(2*Int(channel))
+            var buffer: CMSampleBuffer?
+            error = CMSampleBufferCreate(allocator: nil, dataBuffer: nil, dataReady: false, makeDataReadyCallback: nil, refcon: nil, formatDescription: format, sampleCount: numberOfFrames, sampleTimingEntryCount: 1, sampleTimingArray: &timing, sampleSizeEntryCount: 0, sampleSizeArray: nil, sampleBufferOut: &buffer)
+            if error != 0 {
+                print("Error in CMSampleBufferCreate \(error)")
+            }else{
+                var audioList: AudioBufferList = AudioBufferList()
+                audioList.mNumberBuffers = 1
+                audioList.mBuffers.mData = UnsafeMutableRawPointer(data)
+                audioList.mBuffers.mNumberChannels = channel
+                audioList.mBuffers.mDataByteSize = UInt32(length)
+                error = CMSampleBufferSetDataBufferFromAudioBufferList(buffer!, blockBufferAllocator: nil, blockBufferMemoryAllocator: nil, flags: 0, bufferList: &audioList)
+                if (error != 0) {
+                    print("Error in CMSampleBufferSetDataBufferFromAudioBufferList \(error)")
+                }else{
+                    return buffer
+                }
+            }
+        }
+        return nil
     }
     
     private func modifyAudio(sampleBuffer: CMSampleBuffer, offset: CMTime) -> CMSampleBuffer? {

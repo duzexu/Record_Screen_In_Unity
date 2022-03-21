@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		04C9103A25E2A891000916C4 /* BufferProvider.c in Sources */ = {isa = PBXBuildFile; fileRef = 04C9103825E2A891000916C4 /* BufferProvider.c */; };
 		956E606E24D0376000C264DB /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 956E606D24D0376000C264DB /* ViewController.xib */; };
-		959ABD9224EA294900AAA8D1 /* NativeCallProxy.mm in Sources */ = {isa = PBXBuildFile; fileRef = 959ABD9124EA294900AAA8D1 /* NativeCallProxy.mm */; };
 		95B2F26024CEDDFF00BBA881 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B2F25F24CEDDFF00BBA881 /* AppDelegate.swift */; };
 		95B2F26424CEDDFF00BBA881 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B2F26324CEDDFF00BBA881 /* ViewController.swift */; };
 		95B2F26924CEDDFF00BBA881 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95B2F26824CEDDFF00BBA881 /* Assets.xcassets */; };
@@ -264,7 +263,6 @@
 				04C9103A25E2A891000916C4 /* BufferProvider.c in Sources */,
 				95B2F26424CEDDFF00BBA881 /* ViewController.swift in Sources */,
 				95B2F26024CEDDFF00BBA881 /* AppDelegate.swift in Sources */,
-				959ABD9224EA294900AAA8D1 /* NativeCallProxy.mm in Sources */,
 				95B2F28724CEE2FA00BBA881 /* UnityInterface.swift in Sources */,
 				95B2F29624CEED1900BBA881 /* VideoRecorder.swift in Sources */,
 			);

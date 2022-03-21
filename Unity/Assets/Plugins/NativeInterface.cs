@@ -19,6 +19,9 @@ public class NativeInterface : MonoBehaviour
         public static extern void SendVideoData(byte[] data, int dataLenth);
 
         [DllImport("__Internal")]
+        public static extern void SendAudioData(byte[] data, int dataLenth, int channel);
+
+        [DllImport("__Internal")]
         public static extern void StopRecordVideo();
 
         [DllImport("__Internal")]

@@ -113,6 +113,16 @@ class UnityInterface: NativeCallsProtocol {
         if !fileManager.fileExists(atPath: FileManager.videoRootPath) {
             try? fileManager.createDirectory(atPath: FileManager.videoRootPath, withIntermediateDirectories: true, attributes: nil)
         }
+        if #available(iOS 15, *) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
+                self.initRootVc()
+            }
+        }else{
+            initRootVc()
+        }
+    }
+    
+    func initRootVc() {
         let vc = ViewController()
         vc.view.frame = UIScreen.main.bounds
         let unity = Unity.unityViewController()
@@ -172,6 +182,12 @@ extension UnityInterface {
         if isRecordStart, let byteData = data {
             videoRecorder?.encode(audioBuffer: nil, videoBuffer: byteData)
             screenRecordProgress?(videoRecorder?.time ?? 0)
+        }
+    }
+    
+    func receiveAudioData(fromUnity data: UnsafeMutablePointer<UInt8>?, length: Int, channel: Int) {
+        if isRecordStart, let byteData = data {
+            videoRecorder?.encode(audioBuffer: byteData, length: length, channel: UInt32(channel))
         }
     }
     

@@ -11,6 +11,7 @@
 //视频录制
 - (void)startRecordVideo:(NSString *_Nullable)name width:(NSInteger)width height:(NSInteger)height recordType:(NSInteger)type;
 - (void)receiveVideoDataFromUnity:(Byte *_Nullable)data length:(NSInteger)length;
+- (void)receiveAudioDataFromUnity:(Byte *_Nullable)data length:(NSInteger)length channel:(NSInteger)channel;
 - (void)stopRecordVideo;
 //屏幕截图
 - (void)screenDidShot:(Byte *_Nullable)data length:(NSInteger)length recordType:(NSInteger)type;

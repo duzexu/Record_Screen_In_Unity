@@ -72,6 +72,7 @@ public class ScreenRecorder : MonoBehaviour
     private void Awake()
     {
         NativeAPI.UnityInitialize();
+        AudioSettings.outputSampleRate = 44100;
     }
 
     private void Update()
