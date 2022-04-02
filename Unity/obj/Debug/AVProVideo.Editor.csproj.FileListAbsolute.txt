@@ -1,0 +1,2 @@
+/Users/xu/Record_Screen_In_Unity/Unity/obj/Debug/AVProVideo.Editor.csproj.AssemblyReference.cache
+/Users/xu/Record_Screen_In_Unity/Unity/obj/Debug/AVProVideo.Editor.csproj.CoreCompileInputs.cache

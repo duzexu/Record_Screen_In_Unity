@@ -91,3 +91,4 @@ sysinfo.txt
 crashlytics-build.properties
 
 *.generated.swift
+Unity/Temp/

@@ -1,0 +1,5 @@
+include ':app'
+rootProject.name = "RecorderAndroid"
+include ':unityLibrary'
+project(':unityLibrary').projectDir=new
+File('..\\AndroidBuild\\unityLibrary')

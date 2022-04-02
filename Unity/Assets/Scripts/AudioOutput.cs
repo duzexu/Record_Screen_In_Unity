@@ -2,6 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+#if UNITY_ANDROID
+using RenderHeads.Media.AVProVideo;
+#endif
+using UnityEngine.Video;
 using UnityEngine;
 
 using static NativeInterface;
@@ -10,6 +14,16 @@ public class AudioOutput : MonoBehaviour
 {
     [HideInInspector]
     public bool isRecording = true;
+
+    private void Start()
+    {
+#if UNITY_ANDROID
+        transform.GetComponent<MediaPlayer>().enabled = true;
+        GameObject.Find("Canvas").GetComponentInChildren<DisplayUGUI>().enabled = true;
+        transform.GetComponent<VideoPlayer>().enabled = false;
+        transform.GetComponent<MeshRenderer>().enabled = false;
+#endif
+    }
 
     private void OnAudioFilterRead(float[] data, int channels)
     {
@@ -32,9 +46,7 @@ public class AudioOutput : MonoBehaviour
                 byteArr.CopyTo(bytesData, i * 2);
             }
 
-#if !UNITY_ANDROID
             NativeAPI.SendAudioData(bytesData, bytesData.Length, channels);
-#endif
         }
     }
 }
